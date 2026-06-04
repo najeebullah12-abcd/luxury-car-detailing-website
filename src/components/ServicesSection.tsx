@@ -10,7 +10,7 @@ const services = [
     gradient: 'from-[#00d4ff]/20 to-[#0066cc]/10',
     border: 'border-[#00d4ff]/20',
     glow: 'rgba(0, 212, 255, 0.15)',
-    image: '/images/ceramic-coating.jpg',
+    image: 'images/ceramic-coating.jpg',
     features: ['9H Hardness', '5-Year Warranty', 'Self-Cleaning', 'UV Protection'],
   },
   {
@@ -21,7 +21,7 @@ const services = [
     gradient: 'from-[#c9a84c]/20 to-[#8b6914]/10',
     border: 'border-[#c9a84c]/20',
     glow: 'rgba(201, 168, 76, 0.15)',
-    image: '/images/ppf-film.jpg',
+    image: 'images/ppf-film.jpg',
     features: ['Self-Healing', 'Invisible Protection', '10-Year Warranty', 'Anti-Yellowing'],
   },
   {
@@ -32,7 +32,7 @@ const services = [
     gradient: 'from-[#6600ff]/20 to-[#330080]/10',
     border: 'border-[#6600ff]/20',
     glow: 'rgba(102, 0, 255, 0.15)',
-    image: '/images/window-tint.jpg',
+    image: 'images/window-tint.jpg',
     features: ['99% UV Block', 'Heat Rejection', '3M & Llumar Films', 'Privacy Options'],
   },
   {
@@ -43,7 +43,7 @@ const services = [
     gradient: 'from-[#ff4400]/20 to-[#8b1a00]/10',
     border: 'border-[#ff4400]/20',
     glow: 'rgba(255, 68, 0, 0.15)',
-    image: '/images/car-wrap.jpg',
+    image: 'images/car-wrap.jpg',
     features: ['Unlimited Colors', 'Removable', 'Paint Protection', 'Custom Designs'],
   },
   {
@@ -54,7 +54,7 @@ const services = [
     gradient: 'from-[#00ff88]/20 to-[#006633]/10',
     border: 'border-[#00ff88]/20',
     glow: 'rgba(0, 255, 136, 0.15)',
-    image: '/images/paint-correction.jpg',
+    image: 'images/paint-correction.jpg',
     features: ['Swirl Removal', 'Scratch Removal', 'Multi-Stage Polish', 'Showroom Finish'],
   },
   {
@@ -65,7 +65,7 @@ const services = [
     gradient: 'from-[#ff00aa]/20 to-[#660044]/10',
     border: 'border-[#ff00aa]/20',
     glow: 'rgba(255, 0, 170, 0.15)',
-    image: '/images/interior-detail.jpg',
+    image: 'images/interior-detail.jpg',
     features: ['Leather Treatment', 'Steam Clean', 'Odor Removal', 'UV Protection'],
   },
   {

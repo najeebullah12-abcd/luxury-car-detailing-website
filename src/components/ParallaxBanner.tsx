@@ -15,7 +15,7 @@ export default function ParallaxBanner() {
         className="absolute inset-0 w-full"
       >
         <img
-          src="/images/hero-car.jpg"
+          src="images/hero-car.jpg"
           alt="Luxury Car Detailing Dubai"
           className="w-full h-[130%] object-cover"
           loading="lazy"
