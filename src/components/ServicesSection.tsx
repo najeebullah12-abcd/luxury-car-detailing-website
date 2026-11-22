@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const services = [
@@ -102,15 +102,16 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, scale: 1 }
 };
 
-function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
+function ServiceCard({ service, index, onOpen }: { service: typeof services[0]; index: number; onOpen: (s: typeof services[0]) => void }) {
   const ref = useRef(null);
 
   return (
     <motion.div
       ref={ref}
+      onClick={() => onOpen(service)}
       variants={cardVariants}
-      whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      whileHover={{ y: -6, scale: 1.03 }}
+      transition={{ type: 'spring', stiffness: 700, damping: 18 }}
       className="group relative rounded-xl overflow-hidden service-card cursor-pointer"
       style={{
         background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
@@ -194,6 +195,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 export default function ServicesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
 
   return (
     <section id="services" className="relative py-28 bg-[#050505] overflow-hidden">
@@ -237,9 +239,39 @@ export default function ServicesSection() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
         >
           {services.map((service, i) => (
-            <ServiceCard key={service.id} service={service} index={i} />
-          ))}
+              <ServiceCard key={service.id} service={service} index={i} onOpen={(s) => setSelectedService(s)} />
+            ))}
         </motion.div>
+
+          {/* Modal for Learn More */}
+          {selectedService && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/60" onClick={() => setSelectedService(null)} />
+              <div className="relative z-10 max-w-3xl mx-4 bg-[#0b0b0b] rounded-lg p-6 border border-white/6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2">{selectedService.title}</h3>
+                    <p className="text-sm text-white/60 mb-4">{selectedService.description}</p>
+                    <div className="text-sm text-white/50 mb-4">
+                      <strong>Details:</strong>
+                      <p className="mt-2">This is some additional dummy information about the service. Replace with real content later.</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {selectedService.features.map((f) => (
+                        <div key={f} className="text-white/60 text-sm">• {f}</div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    {selectedService.image && <img src={selectedService.image} alt={selectedService.title} className="w-40 h-28 object-cover rounded" />}
+                  </div>
+                </div>
+                <div className="mt-6 text-right">
+                  <button className="btn-primary px-4 py-2 rounded" onClick={() => setSelectedService(null)}>Close</button>
+                </div>
+              </div>
+            </div>
+          )}
 
         {/* Bottom CTA */}
         <motion.div

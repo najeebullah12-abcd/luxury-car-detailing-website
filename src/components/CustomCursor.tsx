@@ -11,27 +11,34 @@ export default function CustomCursor() {
 
     let mouseX = 0, mouseY = 0;
     let ringX = 0, ringY = 0;
+    let cursorScale = 1;
+    let rafId: number | null = null;
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      cursor.style.transform = `translate(${mouseX - 6}px, ${mouseY - 6}px)`;
+      cursor.style.transform = `translate(${mouseX - 8}px, ${mouseY - 8}px) scale(${cursorScale})`;
     };
 
     const animate = () => {
-      ringX += (mouseX - ringX - 18) * 0.12;
-      ringY += (mouseY - ringY - 18) * 0.12;
+      // increase lerp factor to make the ring follow faster (less perceived lag)
+      const lerp = 0.28;
+      ringX += (mouseX - ringX - 12) * lerp;
+      ringY += (mouseY - ringY - 12) * lerp;
       ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     };
 
     const onMouseEnterLink = () => {
-      cursor.style.transform += ' scale(2)';
-      ring.style.width = '60px';
-      ring.style.height = '60px';
+      cursorScale = 1.6;
+      cursor.style.transform = `translate(${mouseX - 8}px, ${mouseY - 8}px) scale(${cursorScale})`;
+      ring.style.width = '48px';
+      ring.style.height = '48px';
     };
 
     const onMouseLeaveLink = () => {
+      cursorScale = 1;
+      cursor.style.transform = `translate(${mouseX - 8}px, ${mouseY - 8}px) scale(${cursorScale})`;
       ring.style.width = '36px';
       ring.style.height = '36px';
     };
@@ -39,7 +46,7 @@ export default function CustomCursor() {
     document.addEventListener('mousemove', onMouseMove);
     animate();
 
-    const links = document.querySelectorAll('a, button');
+    const links = Array.from(document.querySelectorAll('a, button'));
     links.forEach(link => {
       link.addEventListener('mouseenter', onMouseEnterLink);
       link.addEventListener('mouseleave', onMouseLeaveLink);
@@ -47,6 +54,11 @@ export default function CustomCursor() {
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
+      links.forEach(link => {
+        link.removeEventListener('mouseenter', onMouseEnterLink);
+        link.removeEventListener('mouseleave', onMouseLeaveLink);
+      });
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 
